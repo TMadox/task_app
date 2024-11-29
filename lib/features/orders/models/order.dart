@@ -6,7 +6,7 @@ String orderToMap(List<Order> data) => json.encode(List<dynamic>.from(data.map((
 
 class Order {
   final String id;
-  
+
   final bool isActive;
   final String price;
   final String company;
@@ -14,7 +14,7 @@ class Order {
   final String buyer;
   final List<String> tags;
   final Status status;
-  final String registered;
+  final DateTime registered;
 
   Order({
     required this.id,
@@ -28,29 +28,6 @@ class Order {
     required this.registered,
   });
 
-  Order copyWith({
-    String? id,
-    bool? isActive,
-    String? price,
-    String? company,
-    String? picture,
-    String? buyer,
-    List<String>? tags,
-    Status? status,
-    String? registered,
-  }) =>
-      Order(
-        id: id ?? this.id,
-        isActive: isActive ?? this.isActive,
-        price: price ?? this.price,
-        company: company ?? this.company,
-        picture: picture ?? this.picture,
-        buyer: buyer ?? this.buyer,
-        tags: tags ?? this.tags,
-        status: status ?? this.status,
-        registered: registered ?? this.registered,
-      );
-
   factory Order.fromMap(Map<String, dynamic> json) => Order(
         id: json["id"],
         isActive: json["isActive"],
@@ -60,7 +37,7 @@ class Order {
         buyer: json["buyer"],
         tags: List<String>.from(json["tags"].map((x) => x)),
         status: statusValues.map[json["status"]]!,
-        registered: json["registered"],
+        registered: DateTime.parse(json["registered"]),
       );
 
   Map<String, dynamic> toMap() => {

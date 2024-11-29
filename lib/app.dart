@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/core/utils/routing_utils.dart';
 
@@ -10,6 +11,11 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Task App',
       routerConfig: RoutingUtils.router,
+      localizationsDelegates: [
+        ...context.localizationDelegates,
+      ],
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

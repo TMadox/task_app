@@ -34,6 +34,6 @@ groups:
     class_name: JsonAssets
     types: [.json]
 
-  - path: assets/png
-    class_name: PngAssets
-    types: [.png]
+  - path: assets/translations
+    class_name: TranslationAssets
+    types: [.json]

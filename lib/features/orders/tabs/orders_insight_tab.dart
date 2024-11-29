@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:task_app/core/extensions/context_extension.dart';
@@ -5,7 +6,7 @@ import 'package:task_app/core/extensions/num_extensions.dart';
 import 'package:task_app/core/style/app_colors.dart';
 import 'package:task_app/features/orders/models/order.dart';
 
-class OrdersInsightTab extends StatelessWidget {
+class OrdersInsightTab extends StatefulWidget {
   final List<Order> orders;
   final num totalCount;
   final num returnedCount;
@@ -19,7 +20,13 @@ class OrdersInsightTab extends StatelessWidget {
   });
 
   @override
+  State<OrdersInsightTab> createState() => _OrdersInsightTabState();
+}
+
+class _OrdersInsightTabState extends State<OrdersInsightTab> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -40,9 +47,9 @@ class OrdersInsightTab extends StatelessWidget {
                             style: context.textTheme.titleMedium!.copyWith(
                               color: Colors.white,
                             ),
-                          ),
+                          ).tr(),
                           Text(
-                            totalCount.toString(),
+                            widget.totalCount.toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -65,9 +72,9 @@ class OrdersInsightTab extends StatelessWidget {
                             style: context.textTheme.titleMedium!.copyWith(
                               color: Colors.white,
                             ),
-                          ),
+                          ).tr(),
                           Text(
-                            avgPrice.toPrice,
+                            widget.avgPrice.toPrice,
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -92,9 +99,9 @@ class OrdersInsightTab extends StatelessWidget {
                       style: context.textTheme.titleMedium!.copyWith(
                         color: Colors.white,
                       ),
-                    ),
+                    ).tr(),
                     Text(
-                      returnedCount.toString(),
+                      widget.returnedCount.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -109,12 +116,12 @@ class OrdersInsightTab extends StatelessWidget {
               "all_orders",
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.start,
-            ),
+            ).tr(),
             8.space,
             Expanded(
               child: AnimationLimiter(
                 child: ListView.separated(
-                  itemCount: orders.length,
+                  itemCount: widget.orders.length,
                   itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
                     position: index,
                     child: SlideAnimation(
@@ -122,13 +129,13 @@ class OrdersInsightTab extends StatelessWidget {
                       child: FadeInAnimation(
                         child: Card(
                           child: ListTile(
-                            title: Text("${orders[index].buyer} (${orders[index].company})"),
+                            title: Text("${widget.orders[index].buyer} (${widget.orders[index].company})"),
                             subtitle: Row(
                               children: [
-                                Text(orders[index].status.name),
+                                Text(widget.orders[index].status.name),
                                 const Spacer(),
                                 Text(
-                                  orders[index].price,
+                                  widget.orders[index].price,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -149,4 +156,7 @@ class OrdersInsightTab extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
