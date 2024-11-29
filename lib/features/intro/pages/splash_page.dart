@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task_app/core/constants/app_svgs.dart';
+import 'package:task_app/core/extensions/widgets_extension.dart';
 import 'package:task_app/core/utils/routing_utils.dart';
+import 'package:task_app/features/orders/pages/orders_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,14 +18,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        Future.delayed(
-          const Duration(seconds: 3),
-          () {
-            RoutingUtils.router.goNamed(name);
-          },
-        );
-      },
+      (timeStamp) => Future.delayed(
+        const Duration(seconds: 3),
+        () => RoutingUtils.router.goNamed(const OrdersPage().routeName),
+      ),
     );
     super.didChangeDependencies();
   }
